@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { environment } from '../environments/environment'
-
+// 
 @Injectable()
 export class ApiService {
     messages = []
     users = []
+    cervezas = []
     path = environment.path
 
     constructor(private http: HttpClient) { }
@@ -29,4 +30,9 @@ export class ApiService {
     getProfile(id) {
         return this.http.get(this.path + '/profile/' + id)
     }
+
+    getCervezas() {
+        return this.http.get<any>(this.path + '/cervezas')
+    }
+    
 }

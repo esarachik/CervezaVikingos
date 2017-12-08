@@ -12,12 +12,14 @@ console.log("-Iniciando Server-")
 var User = require('./models/user.js')
 var Post = require('./models/post.js')
 
+
 mongoose.Promise = Promise
 
 app.use(cors())
 app.use(bodyParser.json())
 
-
+var cervezaRoute = require('./routes/cerveza.routes')
+cervezaRoute(app)
 
 app.get('/posts/:id', async (req, res) => {
     var author = req.params.id
@@ -63,7 +65,7 @@ app.get('/profile/:id', async (req, res) => {
 })
 
 mongoose.connect(
-    'mongodb://test:test@ds163745.mlab.com:63745/pssocial',
+    'mongodb://cervezavikingos:eliandy2@ds117336.mlab.com:17336/cerveza-vikingos',
     { useMongoClient: true },
     (err) => {
         if (!err)

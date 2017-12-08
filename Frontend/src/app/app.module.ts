@@ -3,45 +3,39 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+
 
 import {
   MatButtonModule,
   MatCardModule,
   MatToolbarModule,
   MatInputModule,
-  MatListModule
+  MatListModule,
+  MatTableModule,
+  MatSortModule
 } from '@angular/material';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './register.component';
-import { LoginComponent } from './login.component';
-import { MessagesComponent } from './messages.component'
-import { UsersComponent } from './users.component';
-import { ProfileComponent } from './profile.component';
-import { PostComponent } from './post.component';
 import { ApiService } from './api.service';
-import { AuthService } from './auth.service';
-import { AuthInterceptorService } from './authinterceptor.service';
 
+import { RegisterComponent, LoginComponent, AuthService, AuthInterceptorService } from './auth/index.js'
+import { CervezaComponent } from './cerveza.component/cerveza.component.component';
 
 const routes = [
-  { path: '', component: PostComponent },
+  { path: '', component: CervezaComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'profile/:id', component: ProfileComponent }
+  { path: 'cervezas', component: CervezaComponent }
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessagesComponent,
     RegisterComponent,
     LoginComponent,
-    UsersComponent,
-    ProfileComponent,
-    PostComponent
+    CervezaComponent
   ],
   imports: [
     BrowserModule,
@@ -53,14 +47,17 @@ const routes = [
     MatCardModule,
     MatToolbarModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    Angular2FontawesomeModule
   ],
-  providers: [ApiService, AuthService, 
-  { 
-    provide: HTTP_INTERCEPTORS, 
-    useClass: AuthInterceptorService,
-    multi: true 
-  }],
+  providers: [ApiService, AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
